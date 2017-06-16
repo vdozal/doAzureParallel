@@ -139,6 +139,8 @@ makeCluster <- function(clusterSetting = "cluster_settings.json", fullName = FAL
     }
   }
 
+  resourceFiles <- list(createResourceFile(url = paste0("https://github.com/Azure/doAzureParallel/tree/feature/sentiment-analysis/inst/startup/Makeconf"), fileName = "Makeconf"))
+
   response <- .addPool(
     pool = pool$pool,
     packages = packages,

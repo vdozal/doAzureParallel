@@ -157,7 +157,8 @@
 
 .addPool <- function(pool, packages, resourceFiles){
   commands <- c("export PATH=/anaconda/envs/py35/bin:$PATH",
-                "env PATH=$PATH pip install --no-dependencies blobxfer")
+                "env PATH=$PATH pip install --no-dependencies blobxfer",
+                "cp $AZ_BATCH_NODE_STARTUP_DIR/wd/Makeconf /usr/lib64/microsoft-r/3.3/lib64/R/etc/Makeconf")
 
   if(!is.null(packages)){
     commands <- c(commands, packages)
