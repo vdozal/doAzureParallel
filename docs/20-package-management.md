@@ -68,6 +68,12 @@ number_of_iterations <- 10
 results <- foreach(i = 1:number_of_iterations, .packages=c('package_1', 'package_2')) %dopar% { ... }
 ```
 
+Internally this technique will call both _install **and** load_ the packages into the enviroment so there is no need to manually load the library. It is equivalent to:
+```R
+install.packages("some_package")
+library(some_package)
+```
+
 Installing packages from github using this method is not yet supported.
 
 
