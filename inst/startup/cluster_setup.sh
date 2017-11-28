@@ -7,9 +7,9 @@
 container_name=$1
 
 if [ "$2" != "" ]; then
-   repo_name=$2
-   repo_user=$3
-   repo_pass=$4
+   registry_name=$2
+   registry_username=$3
+   registry_password=$4
 fi
 
 apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
@@ -24,7 +24,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt-get -y update
 apt-get -y install docker-ce
 if [ "$2" != "" ]; then
-   docker login --username $repo_user --password $repo_pass $repo_name
+   docker login --username $registry_username --password $registry_username $registry_name
 fi
 docker pull $container_name
 
