@@ -143,10 +143,6 @@ makeCluster <-
       containerPassword <- poolConfig$containerPassword
     }
 
-    containerRegistry = "",
-      containerUsername = "",
-       = "",
-
     # install docker and create docker container
     dockerImage <- "rocker/tidyverse:latest"
     if (!is.null(poolConfig$containerImage)) {
