@@ -23,6 +23,9 @@ generateClusterConfig <- function(fileName) {
         autoscaleFormula = "QUEUE"
       ),
       containerImage = "rocker/tidyverse:latest",
+      containerRegistry = "",
+      containerUsername = "",
+      containerPassword = "",
       rPackages = list(
         cran = vector(),
         github = vector(),
@@ -128,6 +131,21 @@ makeCluster <-
     }
 
     commandLine <- NULL
+    
+    containerRegistry <- NULL
+    containerUsername <- NULL
+    containerPassword <- NULL
+
+    # access a different container registry
+    if (!is.null(poolConfig$containerRegistry)) {
+      containerRegistry <- poolConfig$containerRegistry
+      containerUsername <- poolConfig$containerUsername
+      containerPassword <- poolConfig$containerPassword
+    }
+
+    containerRegistry = "",
+      containerUsername = "",
+       = "",
 
     # install docker and create docker container
     dockerImage <- "rocker/tidyverse:latest"
@@ -138,16 +156,19 @@ makeCluster <-
     config$containerImage <- dockerImage
     installAndStartContainerCommand <- paste("cluster_setup.sh",
                                              dockerImage,
+                                             containerRegistry,
+                                             containerUsername,
+                                             containerPassword,
                                              sep = " ")
 
     containerInstallCommand <- c(
       paste0(
-        "wget https://raw.githubusercontent.com/Azure/doAzureParallel/",
+        "wget https://raw.githubusercontent.com/vdozal/doAzureParallel/",
         "master/inst/startup/cluster_setup.sh"
       ),
       "chmod u+x cluster_setup.sh",
       paste0(
-        "wget https://raw.githubusercontent.com/Azure/doAzureParallel/",
+        "wget https://raw.githubusercontent.com/vdozal/doAzureParallel/",
         "master/inst/startup/install_bioconductor.R"
       ),
       "chmod u+x install_bioconductor.R",
