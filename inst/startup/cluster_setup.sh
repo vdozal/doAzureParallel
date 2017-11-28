@@ -2,9 +2,15 @@
 
 # Entry point for the start task. It will install the docker runtime and pull down the required docker images
 # Usage:
-# setup_node.sh [container_name]
+# setup_node.sh [container_name] [container registry] [registry username] [registry password]
 
 container_name=$1
+
+if [ "$2" != "" ]; then
+   repo_name=$2
+   repo_user=$3
+   repo_pass=$4
+fi
 
 apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
 apt-get -y install apt-transport-https
@@ -17,6 +23,9 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt-get -y update
 apt-get -y install docker-ce
+if [ "$2" != "" ]; then
+   docker login --username $repo_user --password $repo_pass $repo_name
+fi
 docker pull $container_name
 
 # Check docker is running
