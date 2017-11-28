@@ -24,7 +24,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt-get -y update
 apt-get -y install docker-ce
 if [ "$2" != "" ]; then
-   docker login --username $registry_username --password $registry_username $registry_name
+   docker login --username $registry_username --password $registry_password $registry_name
 fi
 docker pull $container_name
 
